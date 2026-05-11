@@ -131,7 +131,9 @@ function ProductCard({ p, onClick, onDragStart, onDrop, onDragOver, isDragging }
           {p.is_featured ? <span className="text-[10px] bg-gamboge text-ink-900 px-1.5 py-0.5 rounded-fabric-sm font-medium">⭐</span> : null}
           {p.is_one_of_a_kind ? <span className="text-[10px] bg-cinnabar text-white px-1.5 py-0.5 rounded-fabric-sm font-medium">孤</span> : null}
         </div>
-        <div className={`absolute top-2 right-2 w-2.5 h-2.5 rounded-full ${p.is_published ? 'bg-jade' : 'bg-ink-300'}`} title={p.is_published ? 'Published' : 'Draft'} />
+        <div className={`absolute top-2 right-2 flex items-center gap-1 ${p.is_published ? 'bg-jade/90 text-white' : 'bg-ink-200 text-ink-600'} text-[9px] px-1.5 py-0.5 rounded-fabric-sm font-medium`}>
+          {p.is_published ? 'Live' : 'Draft'}
+        </div>
       </div>
       <div className="p-3">
         <h3 className="font-chinese-display text-sm text-ink-900 truncate">{p.title_en}</h3>
@@ -199,18 +201,20 @@ function EditorPanel({ item, onClose, onSave, onDelete, categories, existingSlug
     }
   }
 
-  const handleSave = async () => {
+  const handleSave = async (publishStatus) => {
     if (!validate()) { toast('Fix errors before saving', 'error'); return }
+    const willPublish = publishStatus !== undefined ? publishStatus : form.is_published
     setSaving(true)
     try {
       const method = form.id ? 'PUT' : 'POST'
       const url = form.id ? `${API}/products/${form.id}` : `${API}/products`
-      const body = { ...form, category_id: parseInt(form.category_id) || null }
+      const body = { ...form, is_published: willPublish ? 1 : 0, category_id: parseInt(form.category_id) || null }
       if (typeof body.images === 'string') body.images = JSON.parse(body.images || '[]')
       const json = await api(url, { method, headers: authHeaders(), body: JSON.stringify(body) })
       if (json.success) {
-        toast(form.id ? 'Product saved' : 'Product created')
-        onSave(json.data || form)
+        update('is_published', willPublish ? 1 : 0)
+        toast(willPublish ? 'Published — now live on site' : 'Draft saved — not visible to customers')
+        onSave({ ...form, is_published: willPublish ? 1 : 0 })
       } else {
         toast(json.error || 'Save failed', 'error')
       }
@@ -288,23 +292,46 @@ function EditorPanel({ item, onClose, onSave, onDelete, categories, existingSlug
           <div className="flex flex-wrap gap-3 text-[11px]">
             <label className="flex items-center gap-1.5"><input type="checkbox" checked={!!form.is_one_of_a_kind} onChange={e => update('is_one_of_a_kind', e.target.checked ? 1 : 0)} /> One of a Kind</label>
             <label className="flex items-center gap-1.5"><input type="checkbox" checked={!!form.is_featured} onChange={e => update('is_featured', e.target.checked ? 1 : 0)} /> ⭐ Featured</label>
-            <label className="flex items-center gap-1.5"><input type="checkbox" checked={!!form.is_published} onChange={e => update('is_published', e.target.checked ? 1 : 0)} /> 🟢 Published</label>
           </div>
 
-          <div className="flex gap-2 pt-2">
-            <button onClick={handleSave} disabled={saving}
-              className="flex-1 py-2 bg-cinnabar hover:bg-cinnabar-dark disabled:bg-ink-300 text-white text-xs font-medium rounded-fabric transition-colors">
-              {saving ? 'Saving...' : '💾 Save'}
+          {/* Status bar */}
+          <div className={`text-[11px] rounded-fabric-sm px-3 py-2 flex items-center gap-2 ${form.is_published ? 'bg-jade/10 text-jade border border-jade/30' : 'bg-ink-100 text-ink-500 border border-ink-200'}`}>
+            <span className={`w-2 h-2 rounded-full ${form.is_published ? 'bg-jade' : 'bg-ink-400'}`} />
+            <span className="font-medium">{form.is_published ? 'Published — visible to customers' : 'Draft — not visible to customers'}</span>
+          </div>
+
+          <div className="flex gap-2 pt-1">
+            <button onClick={() => handleSave(0)} disabled={saving}
+              className={`flex-1 py-2 border text-xs font-medium rounded-fabric transition-colors ${
+                form.is_published ? 'border-ink-300 text-ink-600 hover:bg-ink-50' : 'bg-ink-200 text-ink-500'
+              }`}>
+              {saving ? '...' : '💾 Save Draft'}
             </button>
+            {!form.is_published && (
+              <button onClick={() => handleSave(1)} disabled={saving}
+                className="flex-1 py-2 bg-jade hover:bg-jade-dark text-white text-xs font-medium rounded-fabric transition-colors">
+                {saving ? '...' : '🚀 Publish'}
+              </button>
+            )}
+            {form.is_published && (
+              <button onClick={() => handleSave(0)} disabled={saving}
+                className="px-3 py-2 border border-gamboge text-gamboge-dark hover:bg-gamboge/10 text-xs rounded-fabric transition-colors">
+                Unpublish
+              </button>
+            )}
             {form.id && (
               <button onClick={handleDelete}
                 className="px-3 py-2 border border-red-300 text-red-500 hover:bg-red-50 text-xs rounded-fabric transition-colors">🗑️</button>
             )}
           </div>
           <p className="text-[10px] text-ink-400">Ctrl+S to save · ESC to close</p>
-          {form.id && (
-            <a href={`/collection/${form.slug}`} target="_blank" rel="noopener noreferrer"
-              className="block text-center text-[11px] text-ink-400 hover:text-cinnabar mt-1">👁️ Preview on site →</a>
+          {form.id && form.slug && (
+            <a href={`/collection/${form.slug}${form.is_published ? '' : '?preview=1'}`} target="_blank" rel="noopener noreferrer"
+              className={`block text-center text-[11px] mt-1 transition-colors ${
+                form.is_published ? 'text-ink-400 hover:text-cinnabar' : 'text-gamboge hover:text-gamboge-dark'
+              }`}>
+              {form.is_published ? '👁 View live page →' : '🔒 Preview (draft — only you can see via this link) →'}
+            </a>
           )}
         </div>
       </div>
@@ -436,7 +463,7 @@ function ProductsView({ items, loading, onEdit }) {
             <option value="draft">Draft</option>
             <option value="featured">⭐ Featured</option>
           </select>
-          <button onClick={() => onEdit({ title_en: '', title_zh: '', slug: '', price: '', size: '', materials_en: '', materials_zh: '', making_time: '', video_url: '', is_one_of_a_kind: 1, is_featured: 0, is_published: 1, images: [], description_en: '', description_zh: '', category_id: '' })}
+          <button onClick={() => onEdit({ title_en: '', title_zh: '', slug: '', price: '', size: '', materials_en: '', materials_zh: '', making_time: '', video_url: '', is_one_of_a_kind: 1, is_featured: 0, is_published: 0, images: [], description_en: '', description_zh: '', category_id: '' })}
             className="text-xs bg-cinnabar hover:bg-cinnabar-dark text-white px-3 py-1.5 rounded-fabric font-medium transition-colors whitespace-nowrap">
             + New
           </button>
@@ -477,7 +504,7 @@ function BlogView({ items, loading, onEdit }) {
     <div>
       <div className="flex items-center justify-between mb-4">
         <h2 className="font-chinese-display text-lg text-ink-900">Journal</h2>
-        <button onClick={() => onEdit({ title_en: '', title_zh: '', slug: '', excerpt: '', content: '', is_published: 1 })}
+        <button onClick={() => onEdit({ title_en: '', title_zh: '', slug: '', excerpt: '', content: '', is_published: 0 })}
           className="text-xs bg-cinnabar hover:bg-cinnabar-dark text-white px-3 py-1.5 rounded-fabric font-medium transition-colors">
           + New Post
         </button>
@@ -513,14 +540,16 @@ function BlogEditorPanel({ item, onClose, onSave, onDelete }) {
   const update = (f, v) => setForm(p => ({ ...p, [f]: v }))
   const isDirty = useMemo(() => JSON.stringify(form) !== initialForm, [form, initialForm])
 
-  const handleSave = async () => {
+  const handleSave = async (publishStatus) => {
     if (!form.title_en?.trim()) { toast('Title is required', 'error'); return }
+    const willPublish = publishStatus !== undefined ? publishStatus : form.is_published
     setSaving(true)
+    const body = { ...form, is_published: willPublish ? 1 : 0 }
     const method = form.id ? 'PUT' : 'POST'
     const url = form.id ? `${API}/blog-posts/${form.id}` : `${API}/blog-posts`
-    const json = await api(url, { method, headers: authHeaders(), body: JSON.stringify(form) })
+    const json = await api(url, { method, headers: authHeaders(), body: JSON.stringify(body) })
     setSaving(false)
-    if (json.success) { toast(form.id ? 'Post saved' : 'Post created'); onSave() }
+    if (json.success) { update('is_published', willPublish ? 1 : 0); toast(willPublish ? 'Published' : 'Draft saved'); onSave() }
     else toast(json.error || 'Save failed', 'error')
   }
 
@@ -553,9 +582,30 @@ function BlogEditorPanel({ item, onClose, onSave, onDelete }) {
         <div><label className="block text-[11px] text-ink-500 mb-1">Content (HTML)</label>
           <textarea rows={6} value={form.content || ''} onChange={e => update('content', e.target.value)}
             className="w-full px-2 py-1.5 border-stitch-warm rounded-fabric-sm text-xs focus:outline-none focus:ring-2 focus:ring-cinnabar bg-white resize-none font-mono" /></div>
-        <label className="flex items-center gap-1.5 text-[11px]"><input type="checkbox" checked={!!form.is_published} onChange={e => update('is_published', e.target.checked ? 1 : 0)} /> Published</label>
+        {/* Status bar */}
+        <div className={`text-[11px] rounded-fabric-sm px-3 py-2 flex items-center gap-2 ${form.is_published ? 'bg-jade/10 text-jade border border-jade/30' : 'bg-ink-100 text-ink-500 border border-ink-200'}`}>
+          <span className={`w-2 h-2 rounded-full ${form.is_published ? 'bg-jade' : 'bg-ink-400'}`} />
+          <span className="font-medium">{form.is_published ? 'Published — visible to customers' : 'Draft — not visible to customers'}</span>
+        </div>
         <div className="flex gap-2">
-          <button onClick={handleSave} disabled={saving} className="flex-1 py-2 bg-cinnabar hover:bg-cinnabar-dark disabled:bg-ink-300 text-white text-xs font-medium rounded-fabric">{saving ? 'Saving...' : '💾 Save'}</button>
+          <button onClick={() => handleSave(0)} disabled={saving}
+            className={`flex-1 py-2 border text-xs font-medium rounded-fabric transition-colors ${
+              form.is_published ? 'border-ink-300 text-ink-600 hover:bg-ink-50' : 'bg-ink-200 text-ink-500'
+            }`}>
+            {saving ? '...' : '💾 Save Draft'}
+          </button>
+          {!form.is_published && (
+            <button onClick={() => handleSave(1)} disabled={saving}
+              className="flex-1 py-2 bg-jade hover:bg-jade-dark text-white text-xs font-medium rounded-fabric transition-colors">
+              {saving ? '...' : '🚀 Publish'}
+            </button>
+          )}
+          {form.is_published && (
+            <button onClick={() => handleSave(0)} disabled={saving}
+              className="px-3 py-2 border border-gamboge text-gamboge-dark hover:bg-gamboge/10 text-xs rounded-fabric transition-colors">
+              Unpublish
+            </button>
+          )}
           {form.id && <button onClick={handleDelete} className="px-3 py-2 border border-red-300 text-red-500 hover:bg-red-50 text-xs rounded-fabric">🗑️</button>}
         </div>
       </div>
@@ -728,7 +778,7 @@ export default function AdminDashboard() {
 
   const handleNavigate = (v, newItem) => {
     setView(v)
-    if (newItem) setEditing({ title_en: '', title_zh: '', slug: '', price: '', size: '', materials_en: '', materials_zh: '', making_time: '', video_url: '', is_one_of_a_kind: 1, is_featured: 0, is_published: 1, images: [], description_en: '', description_zh: '', category_id: '' })
+    if (newItem) setEditing({ title_en: '', title_zh: '', slug: '', price: '', size: '', materials_en: '', materials_zh: '', making_time: '', video_url: '', is_one_of_a_kind: 1, is_featured: 0, is_published: 0, images: [], description_en: '', description_zh: '', category_id: '' })
   }
 
   return (

@@ -24,11 +24,11 @@ const Product = {
     return { items, total, page, limit }
   },
 
-  findBySlug(slug) {
+  findBySlug(slug, { preview } = {}) {
     const db = getDb()
-    const row = db.prepare(
-      'SELECT p.*, c.name_en as category_name_en, c.name_zh as category_name_zh FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.slug = ? AND p.is_published = 1'
-    ).get(slug)
+    let sql = 'SELECT p.*, c.name_en as category_name_en, c.name_zh as category_name_zh FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.slug = ?'
+    if (!preview) sql += ' AND p.is_published = 1'
+    const row = db.prepare(sql).get(slug)
     return row ? parseProduct(row) : null
   },
 
@@ -39,14 +39,18 @@ const Product = {
 
   create(data) {
     const db = getDb()
+    const defaults = { category_id: null, title_en: '', title_zh: '', slug: '', description_en: '', description_zh: '',
+      price: '', size: '', materials_en: '', materials_zh: '', making_time: '', is_one_of_a_kind: 1,
+      images: '[]', video_url: null, is_featured: 0, is_published: 1 }
+    const d = { ...defaults, ...data, images: JSON.stringify(data.images || []) }
     const stmt = db.prepare(
       `INSERT INTO products (category_id, title_en, title_zh, slug, description_en, description_zh,
        price, size, materials_en, materials_zh, making_time, is_one_of_a_kind, images, video_url, is_featured, is_published)
        VALUES (@category_id, @title_en, @title_zh, @slug, @description_en, @description_zh,
        @price, @size, @materials_en, @materials_zh, @making_time, @is_one_of_a_kind, @images, @video_url, @is_featured, @is_published)`
     )
-    const result = stmt.run({ ...data, images: JSON.stringify(data.images || []) })
-    return { id: result.lastInsertRowid, ...data }
+    const result = stmt.run(d)
+    return { id: result.lastInsertRowid, ...d }
   },
 
   update(id, data) {

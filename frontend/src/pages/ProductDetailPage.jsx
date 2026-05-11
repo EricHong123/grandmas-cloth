@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useSearchParams, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useApi } from '../hooks/useApi'
 import SEOHead from '../components/common/SEOHead'
@@ -6,9 +6,11 @@ import VideoEmbed from '../components/common/VideoEmbed'
 
 export default function ProductDetailPage() {
   const { slug } = useParams()
+  const [searchParams] = useSearchParams()
   const { t, i18n } = useTranslation()
   const lang = i18n.language
-  const { data: product, loading, error } = useApi(`/api/products/${slug}`)
+  const preview = searchParams.get('preview') === '1' ? '?preview=1' : ''
+  const { data: product, loading, error } = useApi(`/api/products/${slug}${preview}`)
 
   if (loading) return <DetailSkeleton />
   if (error || !product) {

@@ -17,7 +17,7 @@ const ProductController = {
 
   detail(req, res, next) {
     try {
-      const product = Product.findBySlug(req.params.slug)
+      const product = Product.findBySlug(req.params.slug, { preview: req.query.preview === '1' })
       if (!product) return res.status(404).json({ success: false, data: null, error: 'Product not found' })
       res.json({ success: true, data: product, error: null })
     } catch (err) { next(err) }
