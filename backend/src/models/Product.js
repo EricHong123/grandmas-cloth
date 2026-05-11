@@ -62,8 +62,8 @@ const Product = {
     for (const f of fields) {
       if (data[f] !== undefined) {
         if (f === 'images') {
-          sets.push(`${f} = ?`)
-          params[f] = JSON.stringify(data[f])
+          sets.push(`${f} = @images`)
+          params.images = JSON.stringify(data[f])
         } else {
           sets.push(`${f} = @${f}`)
           params[f] = data[f]
