@@ -22,11 +22,13 @@ const BlogPost = {
 
   create(data) {
     const db = getDb()
+    const defaults = { title_en: '', title_zh: '', slug: '', excerpt: '', content: '', cover_image: null, is_published: 0 }
+    const d = { ...defaults, ...data }
     const stmt = db.prepare(
       'INSERT INTO blog_posts (title_en, title_zh, slug, excerpt, content, cover_image, is_published) VALUES (@title_en, @title_zh, @slug, @excerpt, @content, @cover_image, @is_published)'
     )
-    const result = stmt.run(data)
-    return { id: result.lastInsertRowid, ...data }
+    const result = stmt.run(d)
+    return { id: result.lastInsertRowid, ...d }
   },
 
   update(id, data) {
