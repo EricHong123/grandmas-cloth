@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "ourStory": "Our Story",
+    "collection": "Collection",
+    "theCraft": "The Craft",
+    "gallery": "Gallery",
+    "press": "Press",
+    "workshops": "Workshops",
+    "blog": "Journal",
+    "custom": "Custom",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "home": {
+    "heroTitle": "Discover the Ancient Art of Chinese Cloth Mosaic",
+    "heroSubtitle": "Handcrafted textile paintings by a living heritage artisan — each piece one of a kind",
+    "featuredProducts": "Featured Works",
+    "ourStory": "Our Story",
+    "storySnippet": "For over four decades, Grandma has practiced the vanishing art of cloth patchwork painting — a Chinese intangible cultural heritage craft that transforms fabric scraps into breathtaking textured artworks.",
+    "mediaRecognition": "Media Recognition",
+    "workshopPreview": "Community Workshops",
+    "viewCollection": "View Collection",
+    "readStory": "Read Our Story",
+    "inquireWhatsApp": "Inquire on WhatsApp"
+  },
+  "product": {
+    "oneOfAKind": "One of a Kind",
+    "makingTime": "Making time",
+    "materials": "Materials",
+    "size": "Size",
+    "inquire": "Inquire About This Piece",
+    "category": "Category",
+    "all": "All",
+    "priceOnRequest": "Price on Request"
+  },
+  "story": {
+    "title": "Our Story",
+    "subtitle": "Four decades of dedication to a vanishing craft",
+    "mediaCoverage": "Media Coverage",
+    "workshops": "Community Workshops"
+  },
+  "craft": {
+    "title": "The Craft of Cloth Mosaic",
+    "subtitle": "Discover the centuries-old technique of transforming fabric into art",
+    "whatIs": "What is Cloth Patchwork Painting?",
+    "process": "The Making Process",
+    "materials": "Materials & Tools",
+    "history": "History & Heritage"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "We'd love to hear from you",
+    "whatsapp": "Chat on WhatsApp",
+    "email": "Send us an Email",
+    "form": "Contact Form",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "sent": "Message sent! We'll get back to you soon."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "back": "Back",
+    "viewMore": "View More",
+    "share": "Share"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于",
+    "ourStory": "我们的故事",
+    "collection": "作品集",
+    "theCraft": "布贴画工艺",
+    "gallery": "作品画廊",
+    "press": "媒体报道",
+    "workshops": "公益教学",
+    "blog": "匠人日志",
+    "custom": "定制",
+    "faq": "常见问题",
+    "contact": "联系我们"
+  },
+  "home": {
+    "heroTitle": "发现中国布贴画的古老艺术",
+    "heroSubtitle": "非遗传承人手工制作的布艺画——每一件都是孤品",
+    "featuredProducts": "精选作品",
+    "ourStory": "我们的故事",
+    "storySnippet": "四十多年来，奶奶一直坚持着这项濒临失传的布贴画手艺——这是中国非物质文化遗产，将碎布变成令人惊叹的质感艺术品。",
+    "mediaRecognition": "媒体报道",
+    "workshopPreview": "公益教学活动",
+    "viewCollection": "浏览作品集",
+    "readStory": "了解我们的故事",
+    "inquireWhatsApp": "通过 WhatsApp 咨询"
+  },
+  "product": {
+    "oneOfAKind": "孤品",
+    "makingTime": "制作耗时",
+    "materials": "材料",
+    "size": "尺寸",
+    "inquire": "咨询此作品",
+    "category": "分类",
+    "all": "全部",
+    "priceOnRequest": "价格咨询"
+  },
+  "story": {
+    "title": "我们的故事",
+    "subtitle": "四十年坚守一门即将失传的手艺",
+    "mediaCoverage": "媒体报道",
+    "workshops": "公益教学"
+  },
+  "craft": {
+    "title": "布贴画工艺",
+    "subtitle": "探索将布料变成艺术品的百年技艺",
+    "whatIs": "什么是布贴画？",
+    "process": "制作过程",
+    "materials": "材料与工具",
+    "history": "历史渊源"
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "期待您的来信",
+    "whatsapp": "WhatsApp 在线咨询",
+    "email": "发送邮件",
+    "form": "联系表单",
+    "name": "姓名",
+    "email": "邮箱",
+    "message": "留言",
+    "send": "发送",
+    "sent": "消息已发送！我们会尽快回复。"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "back": "返回",
+    "viewMore": "了解更多",
+    "share": "分享"
+  }
+}

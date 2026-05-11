@@ -1,0 +1,23 @@
+const express = require('express')
+const router = express.Router()
+const ProductController = require('../controllers/ProductController')
+const StoryController = require('../controllers/StoryController')
+const BlogController = require('../controllers/BlogController')
+const GalleryController = require('../controllers/GalleryController')
+const ContactController = require('../controllers/ContactController')
+
+router.get('/products', ProductController.list)
+router.get('/products/:slug', ProductController.detail)
+router.get('/categories', ProductController.categories)
+router.get('/gallery', GalleryController.list)
+router.get('/story', StoryController.get)
+router.get('/press', StoryController.press)
+router.get('/workshops', StoryController.workshops)
+router.get('/blog-posts', BlogController.list)
+router.get('/blog-posts/:slug', BlogController.detail)
+router.get('/faq', StoryController.faq)
+router.get('/sitemap.xml', StoryController.sitemap)
+router.post('/contact', ContactController.submit)
+router.post('/inquiry', ContactController.inquiry)
+
+module.exports = router
