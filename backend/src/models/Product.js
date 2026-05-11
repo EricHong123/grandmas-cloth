@@ -3,6 +3,7 @@ const { getDb } = require('../config/database')
 // Ensure value is safe for SQLite binding (primitive only)
 function safe(v) {
   if (v === null || v === undefined) return null
+  if (typeof v === 'boolean') return v ? 1 : 0
   if (typeof v === 'object') return JSON.stringify(v)
   return v
 }
