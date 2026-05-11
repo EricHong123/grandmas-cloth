@@ -1,5 +1,11 @@
 const { getDb } = require('../config/database')
 
+function safe(v) {
+  if (v === null || v === undefined) return null
+  if (typeof v === 'object') return JSON.stringify(v)
+  return v
+}
+
 const BlogPost = {
   findAll({ page = 1, limit = 9 } = {}) {
     const db = getDb()
@@ -24,10 +30,12 @@ const BlogPost = {
     const db = getDb()
     const defaults = { title_en: '', title_zh: '', slug: '', excerpt: '', content: '', cover_image: null, is_published: 0 }
     const d = { ...defaults, ...data }
+    const params = {}
+    for (const [k, v] of Object.entries(d)) { params[k] = safe(v) }
     const stmt = db.prepare(
       'INSERT INTO blog_posts (title_en, title_zh, slug, excerpt, content, cover_image, is_published) VALUES (@title_en, @title_zh, @slug, @excerpt, @content, @cover_image, @is_published)'
     )
-    const result = stmt.run(d)
+    const result = stmt.run(params)
     return { id: result.lastInsertRowid, ...d }
   },
 
@@ -38,7 +46,7 @@ const BlogPost = {
     for (const f of ['title_en', 'title_zh', 'slug', 'excerpt', 'content', 'cover_image', 'is_published']) {
       if (data[f] !== undefined) {
         sets.push(`${f} = @${f}`)
-        params[f] = data[f]
+        params[f] = safe(data[f])
       }
     }
     if (sets.length === 0) return null

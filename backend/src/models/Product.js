@@ -1,18 +1,20 @@
 const { getDb } = require('../config/database')
 
+// Ensure value is safe for SQLite binding (primitive only)
+function safe(v) {
+  if (v === null || v === undefined) return null
+  if (typeof v === 'object') return JSON.stringify(v)
+  return v
+}
+
 const Product = {
   findAll({ category, page = 1, limit = 12, featured } = {}) {
     const db = getDb()
     let sql = 'SELECT p.*, c.name_en as category_name_en, c.name_zh as category_name_zh FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.is_published = 1'
     const params = []
 
-    if (category) {
-      sql += ' AND c.slug = ?'
-      params.push(category)
-    }
-    if (featured) {
-      sql += ' AND p.is_featured = 1'
-    }
+    if (category) { sql += ' AND c.slug = ?'; params.push(category) }
+    if (featured) sql += ' AND p.is_featured = 1'
 
     const countSql = sql.replace(/SELECT .* FROM/, 'SELECT COUNT(*) as total FROM')
     const { total } = db.prepare(countSql).get(...params)
@@ -42,14 +44,17 @@ const Product = {
     const defaults = { category_id: null, title_en: '', title_zh: '', slug: '', description_en: '', description_zh: '',
       price: '', size: '', materials_en: '', materials_zh: '', making_time: '', is_one_of_a_kind: 1,
       images: '[]', video_url: null, is_featured: 0, is_published: 1 }
-    const d = { ...defaults, ...data, images: JSON.stringify(data.images || []) }
+    const d = { ...defaults, ...data, images: safe(data.images) || '[]' }
+    // Build params safely
+    const params = {}
+    for (const [k, v] of Object.entries(d)) { params[k] = safe(v) }
     const stmt = db.prepare(
       `INSERT INTO products (category_id, title_en, title_zh, slug, description_en, description_zh,
        price, size, materials_en, materials_zh, making_time, is_one_of_a_kind, images, video_url, is_featured, is_published)
        VALUES (@category_id, @title_en, @title_zh, @slug, @description_en, @description_zh,
        @price, @size, @materials_en, @materials_zh, @making_time, @is_one_of_a_kind, @images, @video_url, @is_featured, @is_published)`
     )
-    const result = stmt.run(d)
+    const result = stmt.run(params)
     return { id: result.lastInsertRowid, ...d }
   },
 
@@ -61,13 +66,8 @@ const Product = {
       'price', 'size', 'materials_en', 'materials_zh', 'making_time', 'is_one_of_a_kind', 'images', 'video_url', 'is_featured', 'is_published']
     for (const f of fields) {
       if (data[f] !== undefined) {
-        if (f === 'images') {
-          sets.push(`${f} = @images`)
-          params.images = JSON.stringify(data[f])
-        } else {
-          sets.push(`${f} = @${f}`)
-          params[f] = data[f]
-        }
+        sets.push(`${f} = @${f}`)
+        params[f] = safe(data[f])
       }
     }
     if (sets.length === 0) return null
