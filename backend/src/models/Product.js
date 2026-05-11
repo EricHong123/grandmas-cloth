@@ -9,9 +9,10 @@ function safe(v) {
 }
 
 const Product = {
-  findAll({ category, page = 1, limit = 12, featured } = {}) {
+  findAll({ category, page = 1, limit = 12, featured, includeDrafts } = {}) {
     const db = getDb()
-    let sql = 'SELECT p.*, c.name_en as category_name_en, c.name_zh as category_name_zh FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.is_published = 1'
+    let sql = 'SELECT p.*, c.name_en as category_name_en, c.name_zh as category_name_zh FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE 1=1'
+    if (!includeDrafts) sql += ' AND p.is_published = 1'
     const params = []
 
     if (category) { sql += ' AND c.slug = ?'; params.push(category) }

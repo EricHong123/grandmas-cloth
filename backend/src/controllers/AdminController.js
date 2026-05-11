@@ -28,7 +28,7 @@ const AdminController = {
   },
 
   productList(req, res, next) {
-    try { res.json({ success: true, data: Product.findAll({ limit: 100 }).items, error: null }) } catch (err) { next(err) }
+    try { res.json({ success: true, data: Product.findAll({ limit: 100, includeDrafts: true }).items, error: null }) } catch (err) { next(err) }
   },
   productCreate(req, res, next) {
     try { res.json({ success: true, data: Product.create(req.body), error: null }) } catch (err) { next(err) }
