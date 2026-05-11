@@ -210,7 +210,8 @@ function EditorPanel({ item, onClose, onSave, onDelete, categories, existingSlug
       const url = form.id ? `${API}/products/${form.id}` : `${API}/products`
       const body = { ...form, is_published: willPublish ? 1 : 0, category_id: parseInt(form.category_id) || null }
       if (typeof body.images === 'string') body.images = JSON.parse(body.images || '[]')
-      const json = await api(url, { method, headers: authHeaders(), body: JSON.stringify(body) })
+      const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(body) })
+      const json = await res.json()
       if (json.success) {
         update('is_published', willPublish ? 1 : 0)
         toast(willPublish ? 'Published — now live on site' : 'Draft saved — not visible to customers')
@@ -547,7 +548,8 @@ function BlogEditorPanel({ item, onClose, onSave, onDelete }) {
     const body = { ...form, is_published: willPublish ? 1 : 0 }
     const method = form.id ? 'PUT' : 'POST'
     const url = form.id ? `${API}/blog-posts/${form.id}` : `${API}/blog-posts`
-    const json = await api(url, { method, headers: authHeaders(), body: JSON.stringify(body) })
+    const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(body) })
+    const json = await res.json()
     setSaving(false)
     if (json.success) { update('is_published', willPublish ? 1 : 0); toast(willPublish ? 'Published' : 'Draft saved'); onSave() }
     else toast(json.error || 'Save failed', 'error')
