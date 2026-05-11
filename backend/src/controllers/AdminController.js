@@ -167,6 +167,42 @@ const AdminController = {
       res.json({ success: true, data: null, error: null })
     } catch (err) { next(err) }
   },
+
+  stats(req, res, next) {
+    try {
+      const db = getDb()
+      const totalProducts = db.prepare('SELECT COUNT(*) as c FROM products').get().c
+      const published = db.prepare('SELECT COUNT(*) as c FROM products WHERE is_published = 1').get().c
+      const inquiries = db.prepare('SELECT COUNT(*) as c FROM contact_messages').get().c
+      const recentInquiries = db.prepare('SELECT * FROM contact_messages ORDER BY created_at DESC LIMIT 5').all()
+      const blogPosts = db.prepare('SELECT COUNT(*) as c FROM blog_posts').get().c
+      res.json({ success: true, data: { totalProducts, published, inquiries, recentInquiries, blogPosts }, error: null })
+    } catch (err) { next(err) }
+  },
+
+  mediaList(req, res, next) {
+    try {
+      const fs = require('fs')
+      const path = require('path')
+      const uploadsDir = path.join(__dirname, '..', '..', 'uploads')
+      const files = fs.readdirSync(uploadsDir).filter(f => /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(f))
+      const images = files.map(f => ({ name: f, url: `/uploads/${f}` }))
+      res.json({ success: true, data: images, error: null })
+    } catch (err) { next(err) }
+  },
+
+  reorder(req, res, next) {
+    try {
+      const db = getDb()
+      const { ids } = req.body
+      const stmt = db.prepare('UPDATE products SET sort_order = ? WHERE id = ?')
+      const tx = db.transaction(() => {
+        ids.forEach((id, i) => stmt.run(i, id))
+      })
+      tx()
+      res.json({ success: true, data: null, error: null })
+    } catch (err) { next(err) }
+  },
 }
 
 module.exports = AdminController

@@ -17,7 +17,7 @@ const Product = {
     const countSql = sql.replace(/SELECT .* FROM/, 'SELECT COUNT(*) as total FROM')
     const { total } = db.prepare(countSql).get(...params)
 
-    sql += ' ORDER BY p.created_at DESC LIMIT ? OFFSET ?'
+    sql += ' ORDER BY p.sort_order ASC, p.created_at DESC LIMIT ? OFFSET ?'
     params.push(limit, (page - 1) * limit)
 
     const items = db.prepare(sql).all(...params).map(parseProduct)

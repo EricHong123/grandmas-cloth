@@ -15,6 +15,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } })
 
 router.post('/login', AdminController.login)
+router.get('/stats', auth, AdminController.stats)
+router.get('/media', auth, AdminController.mediaList)
+router.post('/reorder', auth, AdminController.reorder)
 router.post('/upload', auth, upload.single('image'), AdminController.upload)
 
 router.get('/products', auth, AdminController.productList)

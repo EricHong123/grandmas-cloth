@@ -108,6 +108,8 @@ db.exec(`
 
 // Migration: add video_url to existing products table
 try { db.exec('ALTER TABLE products ADD COLUMN video_url TEXT') } catch (_) { /* already exists */ }
+// Migration: add sort_order for drag-and-drop
+try { db.exec('ALTER TABLE products ADD COLUMN sort_order INTEGER DEFAULT 0') } catch (_) { /* already exists */ }
 
 const dataDir = path.join(__dirname, '..', '..', 'data')
 const imagesDir = path.join(__dirname, '..', '..', 'uploads')
