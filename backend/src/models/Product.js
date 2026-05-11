@@ -71,7 +71,7 @@ const Product = {
       }
     }
     if (sets.length === 0) return null
-    sets.push('updated_at = datetime("now")')
+    sets.push("updated_at = datetime('now')")
     params.id = id
     db.prepare(`UPDATE products SET ${sets.join(', ')} WHERE id = @id`).run(params)
     return Product.findById(id)
