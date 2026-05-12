@@ -27,8 +27,12 @@ export default function WorkshopPreview() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {data.slice(0, 4).map(w => (
             <div key={w.id} className="bg-white rounded-fabric p-4 border-stitch-warm card-hover-fabric">
-              <div className="aspect-[4/3] rounded-fabric-sm mb-3 overflow-hidden border-stitch-warm">
-                <img src={w.id % 2 === 0 ? '/images/workshop-kids.webp' : '/images/grandma-teaching.webp'} alt={w.title_en} className="w-full h-full object-cover" />
+              <div className="aspect-[4/3] rounded-fabric-sm mb-3 overflow-hidden border-stitch-warm bg-warmth-100">
+                {w.images?.[0] ? (
+                  <img src={w.images[0]} alt={w.title_en} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-ink-400 text-xs">[Photo]</div>
+                )}
               </div>
               <h3 className="font-chinese-display text-sm text-ink-900">{w.title_en}</h3>
               <p className="text-xs text-ink-500 mt-1.5">

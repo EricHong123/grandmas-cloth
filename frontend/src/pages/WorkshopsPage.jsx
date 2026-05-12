@@ -33,8 +33,12 @@ export default function WorkshopsPage() {
           <div className="space-y-5">
             {workshops?.map(w => (
               <div key={w.id} className="flex flex-col sm:flex-row gap-4 bg-white p-4 rounded-fabric border-stitch-warm card-hover-fabric">
-                <div className="w-full sm:w-40 h-28 rounded-fabric-sm shrink-0 overflow-hidden border-stitch-warm">
-                  <img src={w.id % 2 === 0 ? '/images/workshop-kids.webp' : '/images/grandma-teaching.webp'} alt={w.title_en} className="w-full h-full object-cover" />
+                <div className="w-full sm:w-40 h-28 rounded-fabric-sm shrink-0 overflow-hidden border-stitch-warm bg-warmth-100">
+                  {w.images?.[0] ? (
+                    <img src={w.images[0]} alt={w.title_en} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-ink-400 text-xs">[Photo]</div>
+                  )}
                 </div>
                 <div>
                   <h3 className="font-chinese-display text-ink-900">{w.title_en}</h3>

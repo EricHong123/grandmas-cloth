@@ -23,7 +23,11 @@ const StoryController = {
     try {
       const db = getDb()
       const items = db.prepare('SELECT * FROM workshops ORDER BY date DESC').all()
-      const parsed = items.map(w => ({ ...w, images: JSON.parse(w.images || '[]') }))
+      const parsed = items.map(w => {
+        let images = []
+        try { images = JSON.parse(w.images || '[]') } catch (_) { images = [] }
+        return { ...w, images }
+      })
       res.json({ success: true, data: parsed, error: null })
     } catch (err) { next(err) }
   },

@@ -69,8 +69,12 @@ export default function StoryPage() {
             <div className="space-y-4">
               {workshops.map((w, i) => (
                 <div key={w.id} className="flex gap-4 bg-white p-4 rounded-fabric border-stitch-warm card-hover-fabric">
-                  <div className="shrink-0 w-24 h-24 rounded-fabric-sm overflow-hidden border-stitch-warm">
-                    <img src={i % 2 === 0 ? '/images/workshop-kids.webp' : '/images/grandma-teaching.webp'} alt={w.title_en} className="w-full h-full object-cover" />
+                  <div className="shrink-0 w-24 h-24 rounded-fabric-sm overflow-hidden border-stitch-warm bg-warmth-100">
+                    {w.images?.[0] ? (
+                      <img src={w.images[0]} alt={w.title_en} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-ink-400 text-xs">[Photo]</div>
+                    )}
                   </div>
                   <div>
                     <h3 className="font-chinese-display text-ink-900">{w.title_en}</h3>
