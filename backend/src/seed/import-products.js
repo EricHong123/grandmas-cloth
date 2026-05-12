@@ -19,7 +19,7 @@ const products = [
     materials_en: 'Silk, cotton, linen on canvas board',
     materials_zh: '丝绸、棉布、麻布于画板',
     making_time: '3-4 weeks',
-    images: ['/uploads/01-handmade-peacock-pair-fabric-applique-wall-art.png'],
+    images: ['/uploads/01-handmade-peacock-pair-fabric-applique-wall-art.webp'],
     is_featured: 1,
   },
   {
@@ -35,7 +35,7 @@ const products = [
     materials_en: 'Cotton, linen, silk-accent on canvas board',
     materials_zh: '棉布、麻布、丝质点缀于画板',
     making_time: '2-3 weeks',
-    images: ['/uploads/02-vintage-brass-telescope-handmade-fabric-applique-art.png'],
+    images: ['/uploads/02-vintage-brass-telescope-handmade-fabric-applique-art.webp'],
     is_featured: 1,
   },
   {
@@ -51,7 +51,7 @@ const products = [
     materials_en: 'Cotton, linen, silk on canvas',
     materials_zh: '棉布、麻布、丝绸于画布',
     making_time: '2-3 weeks',
-    images: ['/uploads/04-antique-spyglass-handmade-fabric-applique-wall-art.png'],
+    images: ['/uploads/04-antique-spyglass-handmade-fabric-applique-wall-art.webp'],
     is_featured: 0,
   },
   {
@@ -67,7 +67,7 @@ const products = [
     materials_en: 'Cotton, linen, brocade on canvas board',
     materials_zh: '棉布、麻布、织锦于画板',
     making_time: '2-3 weeks',
-    images: ['/uploads/05-classic-naval-telescope-handmade-fabric-applique-art.png'],
+    images: ['/uploads/05-classic-naval-telescope-handmade-fabric-applique-art.webp'],
     is_featured: 0,
   },
   {
@@ -83,7 +83,7 @@ const products = [
     materials_en: 'Cotton, silk, linen on canvas',
     materials_zh: '棉布、丝绸、麻布于画布',
     making_time: '2-3 weeks',
-    images: ['/uploads/06-traditional-chinese-kite-handmade-fabric-applique-art.png'],
+    images: ['/uploads/06-traditional-chinese-kite-handmade-fabric-applique-art.webp'],
     is_featured: 1,
   },
   {
@@ -99,7 +99,7 @@ const products = [
     materials_en: 'Silk, cotton, linen, brocade on canvas board',
     materials_zh: '丝绸、棉布、麻布、织锦于画板',
     making_time: '4-5 weeks',
-    images: ['/uploads/07-antique-observatory-telescope-fabric-applique-wall-art.png'],
+    images: ['/uploads/07-antique-observatory-telescope-fabric-applique-wall-art.webp'],
     is_featured: 1,
   },
   {
@@ -115,7 +115,7 @@ const products = [
     materials_en: 'Cotton, linen, silk on canvas board',
     materials_zh: '棉布、麻布、丝绸于画板',
     making_time: '3-4 weeks',
-    images: ['/uploads/08-ancient-chinese-sailing-junk-fabric-applique-wall-art.png'],
+    images: ['/uploads/08-ancient-chinese-sailing-junk-fabric-applique-wall-art.webp'],
     is_featured: 1,
   },
   {
@@ -131,7 +131,7 @@ const products = [
     materials_en: 'Cotton, silk, linen on canvas board',
     materials_zh: '棉布、丝绸、麻布于画板',
     making_time: '2-3 weeks',
-    images: ['/uploads/09-storybook-rider-floral-horse-fabric-applique-wall-art.png'],
+    images: ['/uploads/09-storybook-rider-floral-horse-fabric-applique-wall-art.webp'],
     is_featured: 0,
   },
   {
@@ -147,7 +147,7 @@ const products = [
     materials_en: 'Cotton, silk, brocade on canvas board',
     materials_zh: '棉布、丝绸、织锦于画板',
     making_time: '3-4 weeks',
-    images: ['/uploads/11-lucky-new-year-boy-on-horse-fabric-applique-wall-art.png'],
+    images: ['/uploads/11-lucky-new-year-boy-on-horse-fabric-applique-wall-art.webp'],
     is_featured: 1,
   },
   {
@@ -163,7 +163,7 @@ const products = [
     materials_en: 'Silk, cotton, brocade, linen on canvas board',
     materials_zh: '丝绸、棉布、织锦、麻布于画板',
     making_time: '4-5 weeks',
-    images: ['/uploads/14-dragon-and-lion-dance-fabric-applique-wall-art.png'],
+    images: ['/uploads/14-dragon-and-lion-dance-fabric-applique-wall-art.webp'],
     is_featured: 1,
   },
   {
@@ -179,7 +179,7 @@ const products = [
     materials_en: 'Cotton, linen, silk-accent on canvas board',
     materials_zh: '棉布、麻布、丝质点缀于画板',
     making_time: '3-4 weeks',
-    images: ['/uploads/15-rice-harvest-family-handmade-fabric-applique-art.png'],
+    images: ['/uploads/15-rice-harvest-family-handmade-fabric-applique-art.webp'],
     is_featured: 0,
   },
   {
@@ -195,7 +195,7 @@ const products = [
     materials_en: 'Cotton, linen, silk on canvas board',
     materials_zh: '棉布、麻布、丝绸于画板',
     making_time: '3-4 weeks',
-    images: ['/uploads/16-countryside-music-gathering-fabric-applique-wall-art.png'],
+    images: ['/uploads/16-countryside-music-gathering-fabric-applique-wall-art.webp'],
     is_featured: 1,
   },
   {
@@ -211,7 +211,7 @@ const products = [
     materials_en: 'Cotton, linen, silk, brocade on canvas board',
     materials_zh: '棉布、麻布、丝绸、织锦于画板',
     making_time: '3-4 weeks',
-    images: ['/uploads/17-traditional-weaving-loom-fabric-applique-wall-art.png'],
+    images: ['/uploads/17-traditional-weaving-loom-fabric-applique-wall-art.webp'],
     is_featured: 1,
   },
   // ── Table Decor ──
@@ -228,7 +228,7 @@ const products = [
     materials_en: 'Cotton, felt, linen',
     materials_zh: '棉布、毛毡、麻布',
     making_time: '1-2 weeks',
-    images: ['/uploads/03-whimsical-bunny-doll-handmade-fabric-applique-art.png'],
+    images: ['/uploads/03-whimsical-bunny-doll-handmade-fabric-applique-art.webp'],
     is_featured: 0,
   },
   {
@@ -244,7 +244,7 @@ const products = [
     materials_en: 'Cotton, felt, linen',
     materials_zh: '棉布、毛毡、麻布',
     making_time: '1-2 weeks',
-    images: ['/uploads/10-colorful-bunny-doll-handmade-fabric-applique-art.png'],
+    images: ['/uploads/10-colorful-bunny-doll-handmade-fabric-applique-art.webp'],
     is_featured: 0,
   },
   // ── Small Gifts ──
@@ -261,7 +261,7 @@ const products = [
     materials_en: 'Cotton, silk, brocade on board',
     materials_zh: '棉布、丝绸、织锦于木板',
     making_time: '1-2 weeks',
-    images: ['/uploads/12-chinese-new-year-festival-train-fabric-applique-art.png'],
+    images: ['/uploads/12-chinese-new-year-festival-train-fabric-applique-art.webp'],
     is_featured: 0,
   },
   {
@@ -277,7 +277,7 @@ const products = [
     materials_en: 'Cotton, silk, linen on canvas board',
     materials_zh: '棉布、丝绸、麻布于画板',
     making_time: '2-3 weeks',
-    images: ['/uploads/13-my-happy-family-handmade-fabric-applique-wall-art.png'],
+    images: ['/uploads/13-my-happy-family-handmade-fabric-applique-wall-art.webp'],
     is_featured: 1,
   },
 ]
