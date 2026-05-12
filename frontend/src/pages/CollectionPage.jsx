@@ -12,9 +12,18 @@ export default function CollectionPage() {
   const activeCategory = searchParams.get('category') || ''
   const [view, setView] = useState('grid')
 
+  const [sort, setSort] = useState('default')
   const query = `/api/products?limit=50${activeCategory ? `&category=${activeCategory}` : ''}`
   const { data: products, loading } = useApi(query)
   const { data: categories } = useApi('/api/categories')
+
+  const sorted = products ? [...products].sort((a, b) => {
+    const priceA = parseFloat(String(a.price || '0').replace(/[^0-9.]/g, '')) || 0
+    const priceB = parseFloat(String(b.price || '0').replace(/[^0-9.]/g, '')) || 0
+    if (sort === 'price-asc') return priceA - priceB
+    if (sort === 'price-desc') return priceB - priceA
+    return 0 // default: keep API order
+  }) : []
 
   const handleCategory = (slug) => {
     const params = slug ? { category: slug } : {}
@@ -34,25 +43,21 @@ export default function CollectionPage() {
               <div className="h-px w-4 bg-cinnabar opacity-25" />
             </div>
           </div>
-          <div className="flex items-center gap-1 bg-white rounded-fabric-sm border-stitch-warm p-1">
-            <button
-              onClick={() => setView('grid')}
-              className={`p-2 rounded-fabric-sm transition-colors ${view === 'grid' ? 'bg-warmth-200 text-cinnabar' : 'text-ink-400 hover:text-ink-600'}`}
-              title="Grid view"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-              </svg>
-            </button>
-            <button
-              onClick={() => setView('masonry')}
-              className={`p-2 rounded-fabric-sm transition-colors ${view === 'masonry' ? 'bg-warmth-200 text-cinnabar' : 'text-ink-400 hover:text-ink-600'}`}
-              title="Gallery view"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 12a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1v-7z" />
-              </svg>
-            </button>
+          <div className="flex items-center gap-2">
+            <select value={sort} onChange={e => setSort(e.target.value)}
+              className="px-2 py-1.5 border-stitch-warm rounded-fabric-sm text-xs focus:outline-none focus:ring-2 focus:ring-cinnabar bg-white">
+              <option value="default">Featured</option>
+              <option value="price-desc">Price: High → Low</option>
+              <option value="price-asc">Price: Low → High</option>
+            </select>
+            <div className="flex items-center gap-1 bg-white rounded-fabric-sm border-stitch-warm p-1">
+              <button onClick={() => setView('grid')} className={`p-2 rounded-fabric-sm transition-colors ${view === 'grid' ? 'bg-warmth-200 text-cinnabar' : 'text-ink-400 hover:text-ink-600'}`} title="Grid view">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+              </button>
+              <button onClick={() => setView('masonry')} className={`p-2 rounded-fabric-sm transition-colors ${view === 'masonry' ? 'bg-warmth-200 text-cinnabar' : 'text-ink-400 hover:text-ink-600'}`} title="Gallery view">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 12a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1v-7z" /></svg>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -82,12 +87,12 @@ export default function CollectionPage() {
 
         {loading ? (
           <LoadingView view={view} />
-        ) : products && products.length > 0 ? (
+        ) : sorted && sorted.length > 0 ? (
           view === 'masonry' ? (
-            <MasonryView products={products} lang={lang} />
+            <MasonryView products={sorted} lang={lang} />
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map(p => <ProductCard key={p.id} product={p} />)}
+              {sorted.map(p => <ProductCard key={p.id} product={p} />)}
             </div>
           )
         ) : (
@@ -107,11 +112,11 @@ function MasonryView({ products, lang }) {
         return (
           <div key={p.id} className="break-inside-avoid bg-white rounded-fabric overflow-hidden border-stitch-warm card-hover-fabric">
             <a href={`/collection/${p.slug}`}>
-              <div className="bg-warmth-100">
+              <div className="bg-warmth-50 flex items-center justify-center">
                 {img ? (
-                  <img src={img} alt={title} className="w-full" loading="lazy" />
+                  <img src={img} alt={title} className="w-full h-auto" loading="lazy" />
                 ) : (
-                  <div className="aspect-[4/3] flex items-center justify-center text-ink-300">
+                  <div className="aspect-[4/3] w-full flex items-center justify-center text-ink-300">
                     <span className="text-2xl opacity-30">🧵</span>
                   </div>
                 )}
