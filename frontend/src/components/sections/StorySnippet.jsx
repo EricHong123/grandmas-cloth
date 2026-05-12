@@ -5,38 +5,32 @@ export default function StorySnippet() {
   const { t } = useTranslation()
   return (
     <section className="bg-calico text-ink-200 relative overflow-hidden">
-      {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
-          backgroundSize: '20px 20px',
-        }}
-      />
+        style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative">
-            {/* Main photo — hero-detail.jpg showing the artisan/process */}
             <div className="relative z-10">
+              {/* Main photo — grandma at work */}
               <div className="bg-ink-800 rounded-fabric-lg overflow-hidden border-stitch-warm relative shadow-xl">
                 <img
-                  src="/images/hero-detail.jpg"
-                  alt="Artisan at work — creating cloth mosaic art"
-                  className="w-full aspect-[4/3] object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
+                  src="/images/grandma-at-work.webp"
+                  alt="Grandma Luo creating cloth mosaic art by hand"
+                  className="w-full aspect-[4/3] object-cover hover:opacity-100 transition-opacity duration-500"
                 />
-                {/* Photo frame corners */}
                 <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-gamboge opacity-60" />
                 <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-gamboge opacity-60" />
                 <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-gamboge opacity-60" />
                 <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-gamboge opacity-60" />
               </div>
-              {/* Small floating accent image — peek of the artwork */}
+              {/* Floating workshop photo */}
               <div className="absolute -bottom-4 -right-4 z-20 rotate-[3deg]">
                 <div className="bg-white rounded-fabric shadow-lg p-1.5 border-stitch-warm w-28">
                   <div className="rounded-fabric-sm overflow-hidden">
                     <img
-                      src="/images/hero-artwork.jpg"
-                      alt="Artwork detail"
+                      src="/images/workshop-kids.webp"
+                      alt="Children learning cloth mosaic at community workshop"
                       className="w-full aspect-square object-cover"
                     />
                   </div>

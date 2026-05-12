@@ -28,9 +28,10 @@ export default function PressPage() {
           </div>
         ) : (
           <div className="space-y-5">
-            {press?.map(m => (
+            {press?.map((m, i) => (
               <div key={m.id} className="bg-white p-6 rounded-fabric border-stitch-warm card-hover-fabric">
                 <div className="flex items-start justify-between gap-4">
+                  {i === 0 && <img src="/images/press-clipping.webp" alt="Newspaper feature" className="w-24 h-32 rounded-fabric-sm object-cover border-stitch-warm shrink-0" />}
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-[10px] text-cinnabar opacity-50">◆</span>

@@ -20,8 +20,18 @@ export default function StoryPage() {
           <div className="h-px w-4 bg-cinnabar opacity-25" />
         </div>
 
-        <div className="aspect-[16/9] bg-warmth-200 rounded-fabric-lg mb-12 flex items-center justify-center border-stitch-warm">
-          <span className="text-ink-400 tracking-widest text-sm">[ 匠人肖像 · Artisan Portrait ]</span>
+        {/* Hero photo — grandma at work */}
+        <div className="rounded-fabric-lg overflow-hidden border-stitch-warm shadow-lg mb-6">
+          <img src="/images/grandma-at-work.webp" alt="Grandma Luo at work — cloth mosaic artisan" className="w-full aspect-[16/9] object-cover" />
+        </div>
+        {/* Secondary photos — workshop + teaching */}
+        <div className="grid grid-cols-2 gap-3 mb-12">
+          <div className="rounded-fabric-lg overflow-hidden border-stitch-warm">
+            <img src="/images/grandma-teaching.webp" alt="Grandma Luo teaching cloth mosaic" className="w-full aspect-[4/3] object-cover" />
+          </div>
+          <div className="rounded-fabric-lg overflow-hidden border-stitch-warm">
+            <img src="/images/workshop-kids.webp" alt="Children creating cloth mosaic art at workshop" className="w-full aspect-[4/3] object-cover" />
+          </div>
         </div>
 
         {storyLoading ? (
@@ -41,8 +51,9 @@ export default function StoryPage() {
           <section className="mt-16 pt-12 border-t border-dashed border-warmth-300">
             <h2 className="text-xl font-chinese-display text-ink-900 mb-6">{t('story.mediaCoverage')}</h2>
             <div className="grid sm:grid-cols-3 gap-4">
-              {press.map(m => (
+              {press.map((m, i) => (
                 <div key={m.id} className="bg-white p-4 rounded-fabric border-stitch-warm card-hover-fabric">
+                  {i === 0 && <img src="/images/press-clipping.webp" alt="Newspaper coverage" className="w-full rounded-fabric-sm mb-3 border-stitch-warm" />}
                   <p className="font-chinese-display text-sm text-ink-800">{m.source}</p>
                   <p className="text-xs text-ink-500 mt-1">{m.date}</p>
                   <p className="text-sm text-ink-600 mt-2">{m.description}</p>
@@ -56,10 +67,10 @@ export default function StoryPage() {
           <section className="mt-16 pt-12 border-t border-dashed border-warmth-300">
             <h2 className="text-xl font-chinese-display text-ink-900 mb-6">{t('story.workshops')}</h2>
             <div className="space-y-4">
-              {workshops.map(w => (
+              {workshops.map((w, i) => (
                 <div key={w.id} className="flex gap-4 bg-white p-4 rounded-fabric border-stitch-warm card-hover-fabric">
-                  <div className="shrink-0 w-24 h-24 bg-warmth-100 rounded-fabric-sm flex items-center justify-center">
-                    <span className="text-xs text-ink-400">[Photo]</span>
+                  <div className="shrink-0 w-24 h-24 rounded-fabric-sm overflow-hidden border-stitch-warm">
+                    <img src={i % 2 === 0 ? '/images/workshop-kids.webp' : '/images/grandma-teaching.webp'} alt={w.title_en} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <h3 className="font-chinese-display text-ink-900">{w.title_en}</h3>
