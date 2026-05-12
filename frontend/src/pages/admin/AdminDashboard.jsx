@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { API_BASE } from '../../config'
 
-const API = '/api/admin'
+const API = `${API_BASE}/api/admin`
 
 function authHeaders(json = true) {
   const h = { Authorization: `Bearer ${localStorage.getItem('admin_token')}` }

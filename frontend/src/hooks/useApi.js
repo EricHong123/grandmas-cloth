@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { API_BASE } from '../config'
 
 export function useApi(url) {
   const [data, setData] = useState(null)
@@ -9,7 +10,7 @@ export function useApi(url) {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch(url)
+      const res = await fetch(API_BASE + url)
       const json = await res.json()
       if (!json.success) throw new Error(json.error || 'Request failed')
       setData(json.data)
@@ -25,7 +26,7 @@ export function useApi(url) {
 }
 
 export async function postApi(url, body) {
-  const res = await fetch(url, {
+  const res = await fetch(API_BASE + url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
