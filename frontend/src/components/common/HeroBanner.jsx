@@ -28,19 +28,10 @@ export default function HeroBanner() {
             </p>
 
             {/* Trust micro-signals */}
-            <div className="mt-5 flex items-center gap-4 text-xs text-ink-400">
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-jade rounded-full" />
-                One of a Kind
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-jade rounded-full" />
-                2–4 Weeks to Create
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-jade rounded-full" />
-                Free Worldwide Shipping
-              </span>
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] sm:text-xs text-ink-400">
+              <span className="flex items-center gap-1.5 whitespace-nowrap"><span className="w-1.5 h-1.5 bg-jade rounded-full shrink-0" />One of a Kind</span>
+              <span className="flex items-center gap-1.5 whitespace-nowrap"><span className="w-1.5 h-1.5 bg-jade rounded-full shrink-0" />2–4 Weeks to Create</span>
+              <span className="flex items-center gap-1.5 whitespace-nowrap"><span className="w-1.5 h-1.5 bg-jade rounded-full shrink-0" />Free Worldwide Shipping</span>
             </div>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3">

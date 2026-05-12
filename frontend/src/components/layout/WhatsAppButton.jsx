@@ -11,7 +11,7 @@ export default function WhatsAppButton({ productName }) {
       href={`https://wa.me/86?text=${encodeURIComponent(message)}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-cinnabar hover:bg-cinnabar-dark text-white pl-4 pr-5 py-3 rounded-fabric shadow-lg transition-all hover:shadow-xl group"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2 bg-cinnabar hover:bg-cinnabar-dark text-white pl-3 pr-3 sm:pl-4 sm:pr-5 py-2.5 sm:py-3 rounded-fabric shadow-lg transition-all hover:shadow-xl group"
       title={t('contact.whatsapp')}
     >
       {/* Subtle pulse ring */}
