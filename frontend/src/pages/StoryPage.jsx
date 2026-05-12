@@ -53,7 +53,11 @@ export default function StoryPage() {
             <div className="grid sm:grid-cols-3 gap-4">
               {press.map(m => (
                 <div key={m.id} className="bg-white p-4 rounded-fabric border-stitch-warm card-hover-fabric">
-                  {m.image_url && <img src={m.image_url} alt={m.source} className="w-full rounded-fabric-sm mb-3 border-stitch-warm" />}
+                  {m.image_url && (
+                    <div className="w-full aspect-[3/4] rounded-fabric-sm mb-3 overflow-hidden border-stitch-warm bg-warmth-100">
+                      <img src={m.image_url} alt={m.source} className="w-full h-full object-cover" />
+                    </div>
+                  )}
                   <p className="font-chinese-display text-sm text-ink-800">{m.source}</p>
                   <p className="text-xs text-ink-500 mt-1">{m.date}</p>
                   <p className="text-sm text-ink-600 mt-2">{m.description}</p>

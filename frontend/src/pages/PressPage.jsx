@@ -30,8 +30,12 @@ export default function PressPage() {
           <div className="space-y-5">
             {press?.map(m => (
               <div key={m.id} className="bg-white p-6 rounded-fabric border-stitch-warm card-hover-fabric">
-                <div className="flex items-start gap-4">
-                  {m.image_url && <img src={m.image_url} alt={m.source} className="w-20 h-28 rounded-fabric-sm object-cover border-stitch-warm shrink-0" />}
+                <div className="flex items-start gap-5">
+                  {m.image_url && (
+                    <div className="w-28 h-36 shrink-0 rounded-fabric-sm overflow-hidden border-stitch-warm bg-warmth-100">
+                      <img src={m.image_url} alt={m.source} className="w-full h-full object-cover" />
+                    </div>
+                  )}
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-[10px] text-cinnabar opacity-50">◆</span>
@@ -40,9 +44,6 @@ export default function PressPage() {
                     <p className="text-sm text-cinnabar font-medium mt-1">{m.source} · {m.date}</p>
                     <p className="text-sm text-ink-500 mt-3">{m.description}</p>
                   </div>
-                  {m.image_url && (
-                    <img src={m.image_url} alt={m.source} className="w-16 h-16 rounded-fabric-sm object-cover shrink-0 border-stitch-warm" />
-                  )}
                 </div>
               </div>
             ))}
