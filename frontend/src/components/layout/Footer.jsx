@@ -12,9 +12,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <span className="w-6 h-6 bg-cinnabar rounded-fabric-sm flex items-center justify-center">
-                <span className="text-white text-[10px] font-bold">布</span>
-              </span>
+              <img src="/images/logo-small.webp" alt="Grandma's Cloth" className="w-7 h-7 rounded-fabric-sm object-cover" />
               <span className="text-lg font-chinese-display text-gamboge-light">Grandma's Cloth</span>
             </div>
             <p className="text-sm text-indigo-light leading-relaxed opacity-80">

@@ -76,9 +76,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16">
           <Link to="/" className="flex items-center gap-2 shrink-0">
-            <span className="w-6 h-6 sm:w-7 sm:h-7 bg-cinnabar rounded-fabric-sm flex items-center justify-center">
-              <span className="text-white text-[10px] sm:text-xs font-bold">布</span>
-            </span>
+            <img src="/images/logo-small.webp" alt="Grandma's Cloth" className="w-7 h-7 sm:w-8 sm:h-8 rounded-fabric-sm object-cover" />
             <span className="text-base sm:text-lg font-chinese-display text-ink-900 tracking-tight">Grandma's Cloth</span>
           </Link>
 

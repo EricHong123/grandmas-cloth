@@ -788,7 +788,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-ink-50 flex flex-col">
       <header className="bg-ink-900 text-white px-4 sm:px-6 py-2.5 flex items-center justify-between shrink-0 sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <span className="w-6 h-6 bg-cinnabar rounded-fabric-sm flex items-center justify-center"><span className="text-white text-[10px] font-bold">布</span></span>
+          <img src="/images/logo-small.webp" alt="Logo" className="w-6 h-6 rounded-fabric-sm object-cover" />
           <h1 className="font-chinese-display text-sm">Grandma's Cloth</h1>
           <span className="text-[10px] text-ink-500 hidden sm:inline">Admin</span>
         </div>
