@@ -15,7 +15,7 @@ app.use(cors())
 app.use(express.json())
 app.use('/api', rateLimiter)
 
-app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')))
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads'), { maxAge: '30d', immutable: true }))
 
 app.use('/api', apiRoutes)
 app.use('/api/admin', adminRoutes)
