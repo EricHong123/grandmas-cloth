@@ -37,7 +37,7 @@ export default function ContactPage() {
         <div className="grid sm:grid-cols-2 gap-8">
           <div className="space-y-4">
             <a
-              href="https://wa.me/86"
+              href="https://wa.me/8613532328175"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 bg-cinnabar hover:bg-cinnabar-dark text-white p-5 rounded-fabric transition-colors"
@@ -47,7 +47,7 @@ export default function ContactPage() {
               </svg>
               <div>
                 <p className="font-medium">{t('contact.whatsapp')}</p>
-                <p className="text-sm opacity-80">+86 (WhatsApp)</p>
+                <p className="text-sm opacity-80">+86 135 3232 8175</p>
               </div>
             </a>
 

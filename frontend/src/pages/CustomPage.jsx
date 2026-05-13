@@ -261,7 +261,7 @@ export default function CustomPage() {
 
             {/* CTA */}
             <a
-              href={`https://wa.me/86?text=${whatsappMessage}`}
+              href={`https://wa.me/8613532328175?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-cinnabar hover:bg-cinnabar-dark text-white px-8 py-4 rounded-fabric font-medium transition-colors shadow-sm group w-full sm:w-auto justify-center"
@@ -297,7 +297,7 @@ export default function CustomPage() {
           <div className="mt-10 pt-8 border-t border-dashed border-warmth-300 text-center">
             <p className="text-xs text-ink-400 mb-2">Prefer to describe your idea directly?</p>
             <a
-              href="https://wa.me/86?text=Hi! I'd like to discuss a custom cloth mosaic commission."
+              href="https://wa.me/8613532328175?text=Hi! I'd like to discuss a custom cloth mosaic commission."
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-cinnabar hover:text-cinnabar-dark font-medium border-b border-cinnabar pb-0.5 transition-colors"

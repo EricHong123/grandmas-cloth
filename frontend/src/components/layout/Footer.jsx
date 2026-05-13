@@ -33,7 +33,7 @@ export default function Footer() {
           <div>
             <h4 className="text-xs font-semibold text-gamboge-light mb-4 uppercase tracking-[0.2em]">{t('nav.contact')}</h4>
             <div className="space-y-2.5 text-sm">
-              <a href="https://wa.me/86" className="block text-indigo-light hover:text-gamboge transition-colors opacity-80 hover:opacity-100">WhatsApp</a>
+              <a href="https://wa.me/8613532328175" className="block text-indigo-light hover:text-gamboge transition-colors opacity-80 hover:opacity-100">WhatsApp</a>
               <Link to="/contact" className="block text-indigo-light hover:text-gamboge transition-colors opacity-80 hover:opacity-100">{t('contact.form')}</Link>
               <Link to="/faq" className="block text-indigo-light hover:text-gamboge transition-colors opacity-80 hover:opacity-100">{t('nav.faq')}</Link>
             </div>

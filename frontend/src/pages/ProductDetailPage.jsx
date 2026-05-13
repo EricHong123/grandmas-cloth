@@ -166,7 +166,7 @@ export default function ProductDetailPage() {
 
             {/* CTA */}
             <a
-              href={`https://wa.me/86?text=${encodeURIComponent(`Hi, I'm interested in "${title}" — is it still available?`)}`}
+              href={`https://wa.me/8613532328175?text=${encodeURIComponent(`Hi, I'm interested in "${title}" — is it still available?`)}`}
               target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-cinnabar hover:bg-cinnabar-dark text-white px-8 py-4 rounded-fabric font-medium transition-colors shadow-sm group w-full sm:w-auto justify-center"
             >
