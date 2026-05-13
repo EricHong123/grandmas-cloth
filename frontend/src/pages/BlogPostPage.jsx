@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useApi } from '../hooks/useApi'
 import SEOHead from '../components/common/SEOHead'
+import { JsonLd, articleSchema, breadcrumbSchema } from '../components/common/JsonLd'
 
 export default function BlogPostPage() {
   const { slug } = useParams()
@@ -24,6 +25,12 @@ export default function BlogPostPage() {
   return (
     <>
       <SEOHead title={title} description={post.excerpt} image={post.cover_image} path={`/blog/${slug}`} />
+      <JsonLd data={articleSchema(post)} />
+      <JsonLd data={breadcrumbSchema([
+        { name: 'Home', url: 'https://grandmascloth.com' },
+        { name: 'Journal', url: 'https://grandmascloth.com/blog' },
+        { name: title, url: `https://grandmascloth.com/blog/${slug}` },
+      ])} />
       <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <Link to="/blog" className="text-sm text-ink-500 hover:text-cinnabar transition-colors mb-8 inline-block">
           ← {t('nav.blog')}

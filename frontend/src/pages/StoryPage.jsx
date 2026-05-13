@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useApi } from '../hooks/useApi'
 import SEOHead from '../components/common/SEOHead'
+import { JsonLd, personSchema, breadcrumbSchema } from '../components/common/JsonLd'
 
 export default function StoryPage() {
   const { t, i18n } = useTranslation()
@@ -12,6 +13,11 @@ export default function StoryPage() {
   return (
     <>
       <SEOHead title={t('story.title')} description={t('story.subtitle')} path="/our-story" />
+      <JsonLd data={personSchema} />
+      <JsonLd data={breadcrumbSchema([
+        { name: 'Home', url: 'https://grandmascloth.com' },
+        { name: 'Our Story', url: 'https://grandmascloth.com/our-story' },
+      ])} />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <p className="text-xs tracking-[0.2em] text-ink-400 uppercase mb-2">✦ {t('nav.about')}</p>
         <h1 className="text-3xl sm:text-4xl font-chinese-display text-ink-900 mb-2">{t('story.title')}</h1>

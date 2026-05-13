@@ -3,6 +3,7 @@ import { useParams, useSearchParams, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useApi } from '../hooks/useApi'
 import SEOHead from '../components/common/SEOHead'
+import { JsonLd, productSchema, breadcrumbSchema } from '../components/common/JsonLd'
 import VideoEmbed from '../components/common/VideoEmbed'
 import ProductCard from '../components/common/ProductCard'
 
@@ -46,6 +47,12 @@ export default function ProductDetailPage() {
   return (
     <>
       <SEOHead title={title} description={description?.replace(/<[^>]*>/g, '').substring(0, 160)} image={mainImage} path={`/collection/${slug}`} />
+      <JsonLd data={productSchema(product)} />
+      <JsonLd data={breadcrumbSchema([
+        { name: 'Home', url: 'https://grandmascloth.com' },
+        { name: 'Collection', url: 'https://grandmascloth.com/collection' },
+        { name: title, url: `https://grandmascloth.com/collection/${slug}` },
+      ])} />
 
       {/* ── Lightbox ── */}
       {lightbox !== null && (

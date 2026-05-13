@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useApi } from '../hooks/useApi'
 import SEOHead from '../components/common/SEOHead'
+import { JsonLd, faqSchema, breadcrumbSchema } from '../components/common/JsonLd'
 
 export default function FAQPage() {
   const { t, i18n } = useTranslation()
@@ -12,6 +13,11 @@ export default function FAQPage() {
   return (
     <>
       <SEOHead title={t('nav.faq')} path="/faq" />
+      {faqs && <JsonLd data={faqSchema(faqs)} />}
+      <JsonLd data={breadcrumbSchema([
+        { name: 'Home', url: 'https://grandmascloth.com' },
+        { name: 'FAQ', url: 'https://grandmascloth.com/faq' },
+      ])} />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <p className="text-xs tracking-[0.2em] text-ink-400 uppercase mb-2">✦ Help</p>
         <h1 className="text-3xl sm:text-4xl font-chinese-display text-ink-900 mb-2">{t('nav.faq')}</h1>

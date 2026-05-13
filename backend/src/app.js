@@ -10,6 +10,9 @@ const { rateLimiter } = require('./middleware/rateLimiter')
 const app = express()
 const PORT = process.env.PORT || 3001
 
+// Prerender for SEO/GEO crawlers
+app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN || ''))
+
 app.use(helmet({ contentSecurityPolicy: false }))
 app.use(cors())
 app.use(express.json())
